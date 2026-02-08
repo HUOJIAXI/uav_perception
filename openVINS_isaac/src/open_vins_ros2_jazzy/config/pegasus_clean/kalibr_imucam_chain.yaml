@@ -1,0 +1,16 @@
+%YAML:1.0
+
+cam0:
+  T_imu_cam:
+    - [1.0, 0.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0, 0.0]
+    - [0.0, 0.0, 1.0, 0.0]
+    - [0.0, 0.0, 0.0, 1.0]
+  cam_overlaps: []
+  camera_model: pinhole
+  distortion_coeffs: [0.14, -0.03, -0.0002, -0.00003]
+  distortion_model: radtan
+  intrinsics: [4581.2456, 4581.2456, 957.8, 589.5]
+  resolution: [1920, 1200]
+  rostopic: /pegasus_1/rgb
+  timeshift_cam_imu: 0.076

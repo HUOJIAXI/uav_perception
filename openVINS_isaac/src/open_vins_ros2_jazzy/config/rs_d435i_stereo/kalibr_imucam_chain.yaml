@@ -1,0 +1,37 @@
+%YAML:1.0
+
+cam0:
+  # Extrinsics from your VINS config (body_T_cam0)
+  T_cam_imu:
+    - [1.000, 0.013, -0.013, -0.011]  # Updated row 1
+    - [-0.014, 0.999, -0.043, -0.018]  # Updated row 2
+    - [0.013, 0.043, 0.999, -0.005]   # Updated row 3
+    - [0.0, 0.0, 0.0, 1.0]
+  camera_model: pinhole
+  distortion_model: radtan
+  # Updated distortion from OpenVINS cam0
+  distortion_coeffs: [0.00878, -0.00585, 0.00095, 0.00083]
+  # Updated intrinsics from OpenVINS cam0
+  intrinsics: [434.503, 432.954, 429.303, 235.478]
+  resolution: [848, 480]
+  rostopic: /camera/camera/infra1/image_rect_raw
+  # Updated timeshift from OpenVINS (-0.00130)
+  timeshift_cam_imu: -0.00130
+
+cam1:
+  # Updated extrinsics from OpenVINS T_C1toI (was body_T_cam1)
+  T_cam_imu:
+    - [1.000, 0.013, -0.013, 0.043]   # Updated row 1
+    - [-0.014, 0.999, -0.042, -0.018]  # Updated row 2 (note: slight diff in z-rotation from your old value)
+    - [0.012, 0.042, 0.999, -0.004]   # Updated row 3
+    - [0.0, 0.0, 0.0, 1.0]
+  camera_model: pinhole
+  distortion_model: radtan
+  # Updated distortion from OpenVINS cam1
+  distortion_coeffs: [0.00961, -0.00658, 0.00095, 0.00060]
+  # Updated intrinsics from OpenVINS cam1
+  intrinsics: [434.151, 432.685, 429.111, 235.726]
+  resolution: [848, 480]
+  rostopic: /camera/camera/infra2/image_rect_raw
+  # Updated timeshift (assumed same as cam0)
+  timeshift_cam_imu: -0.00130

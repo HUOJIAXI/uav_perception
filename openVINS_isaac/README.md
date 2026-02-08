@@ -1,0 +1,2 @@
+1. UAV必须由pegasus进行生成
+2. 做openVINS一定要做时钟同步，特别是imu和camera的，在isaacsim中，一定要添加clock的omnigraph，并且设置resetOnStop为True

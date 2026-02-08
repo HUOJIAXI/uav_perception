@@ -1,0 +1,202 @@
+%YAML:1.0
+
+# ========================================================================
+# Camera-IMU Calibration Template (Monocular)
+# ========================================================================
+# Fill in your camera calibration parameters
+
+cam0:
+  # ========================================================================
+  # Camera-IMU Extrinsics
+  # ========================================================================
+  # Transformation from camera to IMU frame (or IMU to camera)
+  # This is a 4x4 homogeneous transformation matrix [R | t; 0 0 0 1]
+  # where R is 3x3 rotation matrix and t is 3x1 translation vector
+  #
+  # NOTE: The name can be T_cam_imu or T_imu_cam depending on convention
+  #       OpenVINS will handle both, but make sure your values match!
+  #
+  # If you DON'T know this:
+  #   1. Start with identity (below)
+  #   2. Enable calib_cam_extrinsics: true in estimator_config.yaml
+  #   3. OpenVINS will optimize it (but initial estimate helps)
+  #
+  # If you DO know this:
+  #   - Use output from Kalibr camera-IMU calibration
+  #   - Or manually measure camera position relative to IMU
+  #
+  T_cam_imu:
+    - [1.0, 0.0, 0.0, 0.0]  # [r11, r12, r13, tx]
+    - [0.0, 1.0, 0.0, 0.0]  # [r21, r22, r23, ty]
+    - [0.0, 0.0, 1.0, 0.0]  # [r31, r32, r33, tz]
+    - [0.0, 0.0, 0.0, 1.0]  # [0,   0,   0,   1]
+
+  # ========================================================================
+  # Camera Overlaps (for multi-camera systems)
+  # ========================================================================
+  # Empty for monocular setup
+  # For stereo, this would be: [1] (cam0 overlaps with cam1)
+  cam_overlaps: []
+
+  # ========================================================================
+  # Camera Model
+  # ========================================================================
+  # Options:
+  #   - pinhole: Standard perspective camera (most common)
+  #   - fisheye: Wide FOV fisheye lens
+  #   - equidistant: Alternative fisheye model
+  camera_model: pinhole
+
+  # ========================================================================
+  # Distortion Model and Coefficients
+  # ========================================================================
+  # For pinhole camera, use "radtan" (radial-tangential):
+  #   distortion_coeffs: [k1, k2, p1, p2]
+  #   - k1, k2: radial distortion
+  #   - p1, p2: tangential distortion
+  #
+  # For fisheye camera, use "equidistant":
+  #   distortion_coeffs: [k1, k2, k3, k4]
+  #
+  # HOW TO GET THESE:
+  #   Method 1: From camera_info topic
+  #     ros2 topic echo /your/camera/camera_info --once
+  #     Look for "D:" field
+  #
+  #   Method 2: From ROS calibration file
+  #     Usually in ~/.ros/camera_info/camera_name.yaml
+  #
+  #   Method 3: From manufacturer specifications
+  #
+  distortion_model: radtan  # or "equidistant" for fisheye
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]  # REPLACE THIS: [k1, k2, p1, p2]
+
+  # ========================================================================
+  # Camera Intrinsics
+  # ========================================================================
+  # Format: [fx, fy, cx, cy]
+  #   - fx, fy: focal lengths in pixels
+  #   - cx, cy: principal point (optical center)
+  #
+  # HOW TO GET THESE:
+  #   Method 1: From camera_info topic
+  #     ros2 topic echo /your/camera/camera_info --once
+  #     Look for "K:" field (3x3 matrix)
+  #     K = [fx,  0, cx,
+  #           0, fy, cy,
+  #           0,  0,  1]
+  #
+  #   Method 2: From ROS calibration file
+  #     camera_matrix:
+  #       data: [fx, 0, cx, 0, fy, cy, 0, 0, 1]
+  #
+  #   Method 3: Typical estimates (if calibration unavailable)
+  #     fx = fy ≈ image_width (for ~60° FOV)
+  #     cx ≈ image_width / 2
+  #     cy ≈ image_height / 2
+  #
+  intrinsics: [500.0, 500.0, 320.0, 240.0]  # REPLACE THIS: [fx, fy, cx, cy]
+
+  # ========================================================================
+  # Image Resolution
+  # ========================================================================
+  # Format: [width, height] in pixels
+  #
+  # HOW TO GET THIS:
+  #   ros2 topic echo /your/camera/camera_info --once
+  #   Look for "width:" and "height:" fields
+  #
+  resolution: [640, 480]  # REPLACE THIS: [width, height]
+
+  # ========================================================================
+  # ROS Topic Configuration
+  # ========================================================================
+  # REQUIRED: Replace with your actual camera image topic
+  #
+  # Common examples:
+  #   - /camera/image_raw (generic)
+  #   - /camera/color/image_raw (RealSense)
+  #   - /usb_cam/image_raw (USB cameras)
+  #   - /mavros/camera/image_raw (MAVROS)
+  #   - /dji_osdk_ros/main_camera_images (DJI)
+  #
+  # NOTE: Use the IMAGE topic, NOT the camera_info topic
+  #       Message type should be: sensor_msgs/Image
+  #
+  rostopic: /your/camera/image/topic  # CHANGE THIS!
+
+  # ========================================================================
+  # Camera-IMU Time Offset
+  # ========================================================================
+  # Time offset between camera and IMU in seconds
+  # Positive means camera timestamp is ahead of IMU
+  # Will be optimized if calib_cam_timeoffset: true
+  timeshift_cam_imu: 0.0
+
+# ========================================================================
+# EXAMPLE: Getting Calibration from camera_info
+# ========================================================================
+#
+# $ ros2 topic echo /camera/camera_info --once
+#
+# header:
+#   ...
+# height: 480
+# width: 640
+# distortion_model: "plumb_bob"
+# d: [0.1, -0.2, 0.001, -0.002, 0.0]
+# k: [525.0, 0.0, 319.5, 0.0, 525.0, 239.5, 0.0, 0.0, 1.0]
+# ...
+#
+# Convert to OpenVINS format:
+#   resolution: [640, 480]
+#   distortion_model: radtan
+#   distortion_coeffs: [0.1, -0.2, 0.001, -0.002]  # First 4 from D
+#   intrinsics: [525.0, 525.0, 319.5, 239.5]        # [k[0], k[4], k[2], k[5]]
+#
+# ========================================================================
+
+# ========================================================================
+# EXAMPLE: Typical Camera Specifications
+# ========================================================================
+#
+# Logitech C920 (1080p):
+#   resolution: [1920, 1080]
+#   intrinsics: [1000, 1000, 960, 540]  # approximate
+#   distortion: minimal, use [0.0, 0.0, 0.0, 0.0]
+#
+# RealSense D435i (color):
+#   resolution: [640, 480] or [1280, 720]
+#   intrinsics: varies, use camera_info
+#   distortion_model: radtan
+#
+# Raspberry Pi Camera v2:
+#   resolution: [640, 480] or [1920, 1080]
+#   intrinsics: [530, 530, 320, 240] @ 640x480
+#   distortion: [0.1, -0.25, 0.0, 0.0]
+#
+# GoPro (wide angle):
+#   resolution: [1920, 1080] or higher
+#   camera_model: fisheye
+#   distortion_model: equidistant
+#   intrinsics: varies significantly, must calibrate
+#
+# ========================================================================
+
+# ========================================================================
+# Camera Coordinate Frame Convention
+# ========================================================================
+# OpenVINS uses OpenCV convention:
+#   - X: right
+#   - Y: down
+#   - Z: forward (optical axis)
+#
+# If your camera uses ROS convention (X forward, Y left, Z up),
+# you need to account for this in T_cam_imu transformation.
+#
+# ROS to OpenCV rotation:
+#   [0,  0,  1,
+#    -1, 0,  0,
+#    0, -1,  0]
+#
+# ========================================================================

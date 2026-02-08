@@ -1,0 +1,134 @@
+%YAML:1.0
+
+# ========================================================================
+# IMU Configuration Template
+# ========================================================================
+# Fill in your IMU topic and noise parameters
+# Noise values should come from your IMU datasheet
+
+imu0:
+  # ========================================================================
+  # Transform from IMU to body frame
+  # ========================================================================
+  # Usually identity matrix unless IMU is mounted differently
+  T_i_b:
+    - [1.0, 0.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0, 0.0]
+    - [0.0, 0.0, 1.0, 0.0]
+    - [0.0, 0.0, 0.0, 1.0]
+
+  # ========================================================================
+  # IMU Noise Parameters
+  # ========================================================================
+  # CRITICAL: Get these from your IMU datasheet!
+  # Typical ranges are provided below
+
+  # Accelerometer white noise: 0.001 - 0.01 m/s^2/sqrt(Hz)
+  # Check datasheet for "acceleration noise density" or "white noise"
+  accelerometer_noise_density: 2.0000e-3  # REPLACE THIS
+
+  # Accelerometer random walk: 0.001 - 0.01 m/s^3/sqrt(Hz)
+  # Check datasheet for "acceleration bias instability" or "random walk"
+  accelerometer_random_walk: 3.0000e-3    # REPLACE THIS
+
+  # Gyroscope white noise: 0.0001 - 0.001 rad/s/sqrt(Hz)
+  # Check datasheet for "angular random walk" or "white noise"
+  gyroscope_noise_density: 1.6968e-04     # REPLACE THIS
+
+  # Gyroscope random walk: 0.00001 - 0.0001 rad/s^2/sqrt(Hz)
+  # Check datasheet for "rate bias instability" or "random walk"
+  gyroscope_random_walk: 1.9393e-05       # REPLACE THIS
+
+  # ========================================================================
+  # ROS Topic Configuration
+  # ========================================================================
+  # REQUIRED: Replace with your actual IMU topic
+  # Common examples:
+  #   - /mavros/imu/data (MAVROS/PX4)
+  #   - /dji_osdk_ros/imu (DJI)
+  #   - /imu/data (generic)
+  #   - /vectornav/imu (VectorNav)
+  rostopic: /your/imu/topic  # CHANGE THIS!
+
+  # Time offset between IMU and system time
+  # Will be optimized if calib_cam_timeoffset is enabled
+  time_offset: 0.0
+
+  # IMU update rate in Hz
+  # Check your actual IMU publishing rate
+  # Typical values: 100-400 Hz (200 Hz is common)
+  update_rate: 200.0  # ADJUST THIS
+
+  # ========================================================================
+  # IMU Model
+  # ========================================================================
+  # Options: "calibrated", "kalibr", or "rpng"
+  # Use "kalibr" unless you have advanced intrinsic calibration
+  model: "kalibr"
+
+  # ========================================================================
+  # Advanced: IMU Intrinsic Calibration
+  # ========================================================================
+  # Only change these if you have performed IMU intrinsic calibration
+  # Using tools like: imu_utils or Kalibr IMU calibration
+  # Otherwise, leave as identity matrices
+
+  # Gyroscope scale and misalignment matrix
+  Tw:
+    - [1.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0]
+    - [0.0, 0.0, 1.0]
+
+  # Gyroscope to IMU frame rotation
+  R_IMUtoGYRO:
+    - [1.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0]
+    - [0.0, 0.0, 1.0]
+
+  # Accelerometer scale and misalignment matrix
+  Ta:
+    - [1.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0]
+    - [0.0, 0.0, 1.0]
+
+  # Accelerometer to IMU frame rotation
+  R_IMUtoACC:
+    - [1.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0]
+    - [0.0, 0.0, 1.0]
+
+  # Gyroscope g-sensitivity matrix (gravity-dependent bias)
+  Tg:
+    - [0.0, 0.0, 0.0]
+    - [0.0, 0.0, 0.0]
+    - [0.0, 0.0, 0.0]
+
+# ========================================================================
+# Common IMU Noise Values Reference
+# ========================================================================
+#
+# Consumer Grade (MPU6050, MPU9250):
+#   accelerometer_noise_density: 0.01
+#   accelerometer_random_walk: 0.01
+#   gyroscope_noise_density: 0.001
+#   gyroscope_random_walk: 0.0001
+#
+# Mid-Grade (ADIS16448, BMI088):
+#   accelerometer_noise_density: 0.003
+#   accelerometer_random_walk: 0.003
+#   gyroscope_noise_density: 0.0003
+#   gyroscope_random_walk: 0.00003
+#
+# High-Grade (VectorNav VN-100, ADIS16505):
+#   accelerometer_noise_density: 0.001
+#   accelerometer_random_walk: 0.001
+#   gyroscope_noise_density: 0.0001
+#   gyroscope_random_walk: 0.00001
+#
+# Tactical Grade (KVH, Honeywell):
+#   accelerometer_noise_density: 0.0005
+#   accelerometer_random_walk: 0.0005
+#   gyroscope_noise_density: 0.00005
+#   gyroscope_random_walk: 0.000005
+#
+# ========================================================================

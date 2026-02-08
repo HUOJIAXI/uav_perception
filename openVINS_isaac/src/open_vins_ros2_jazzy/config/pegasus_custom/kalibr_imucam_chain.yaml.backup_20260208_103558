@@ -1,0 +1,18 @@
+%YAML:1.0
+
+cam0:
+  T_imu_cam: #rotation from camera to IMU R_CtoI, position of camera in IMU p_CinI
+    # NOTE: This is an INITIAL ESTIMATE! You should calibrate this properly using Kalibr or similar tools
+    # Current assumption: Camera frame approximately aligned with IMU frame
+    - [1.0, 0.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0, 0.0]
+    - [0.0, 0.0, 1.0, 0.0]
+    - [0.0, 0.0, 0.0, 1.0]
+  cam_overlaps: []
+  camera_model: pinhole
+  distortion_coeffs: [0.14, -0.03, -0.0002, -0.00003] #k1, k2, p1, p2 (radtan model)
+  distortion_model: radtan
+  intrinsics: [4581.2456, 4581.2456, 957.8, 589.5] #fu, fv, cu, cv
+  resolution: [1920, 1200]
+  rostopic: /pegasus_1/rgb
+  timeshift_cam_imu: -0.076 # Initial estimate: Camera lags IMU by 76ms (from time delay analysis)

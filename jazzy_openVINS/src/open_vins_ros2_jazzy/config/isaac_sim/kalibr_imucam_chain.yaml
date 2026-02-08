@@ -1,0 +1,17 @@
+%YAML:1.0
+
+cam0:
+  T_imu_cam: # Transformation from camera to IMU (R_CtoI, p_CinI)
+    # Assuming camera is roughly aligned with body frame, may need adjustment
+    # This is an initial guess - will be calibrated online
+    - [0.0, 0.0, 1.0, 0.0]
+    - [-1.0, 0.0, 0.0, 0.0]
+    - [0.0, -1.0, 0.0, 0.0]
+    - [0.0, 0.0, 0.0, 1.0]
+  cam_overlaps: []
+  camera_model: pinhole
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]  # no distortion in simulation
+  distortion_model: radtan
+  intrinsics: [3054.163695204686, 3054.163695204686, 640.0, 360.0] # fx, fy, cx, cy from Isaac Sim
+  resolution: [1280, 720]
+  rostopic: /pegasus_1/rgb

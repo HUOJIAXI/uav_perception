@@ -1,0 +1,41 @@
+CLEANUP SUMMARY
+===============
+
+Deleted Redundant Scripts:
+- run_docker_single.sh (single container mode - not needed for 3-terminal)
+- run_docker_tmux.sh (tmux mode - not needed for 3-terminal)
+- run_uav_complete.sh (automated launcher - redundant for manual)
+- run_uzhfpv_indoor.sh (interactive menu - redundant for manual)
+- start_openvins_demo.sh (automated launcher - redundant)
+- test_bag_playback.sh (redundant)
+- debug_ros2_comms.sh (duplicate diagnostic)
+- diagnose_ros2_network.sh (duplicate diagnostic)
+
+Deleted Redundant Documentation:
+- DOCKER_GUIDE.md (consolidated into MANUAL_3_TERMINAL_GUIDE.md)
+- MULTIPLE_TERMINALS_GUIDE.md (consolidated)
+- QUICK_START.md (consolidated into START_HERE.md)
+- ROS2_TROUBLESHOOTING.md (consolidated into FIX_TOPICS.md)
+- RUN_UZHFPV_DATASET.md (consolidated)
+
+Kept Essential Files:
+- run_docker.sh (essential for starting containers)
+- quick_check.sh (diagnostic tool)
+- debug_topics.sh (diagnostic tool)
+- test_openvins_step_by_step.sh (comprehensive diagnostic)
+
+Kept Documentation:
+- START_HERE.md (main entry point)
+- MANUAL_3_TERMINAL_GUIDE.md (complete manual guide)
+- FIX_TOPICS.md (troubleshooting)
+- SIMPLE_TEST.md (debugging guide)
+
+Other Scripts (not touched):
+- build_docker.sh (original - for building Docker image)
+- setup_docker.sh (original - initial setup)
+- setup_workspace.sh (original - workspace setup)
+- attach_docker.sh (original - attach to running container)
+- check_docker_mount.sh (original - verify mounts)
+- run_copyright.sh (original - repo maintenance)
+- run_format.sh (original - repo maintenance)
+- run_size.sh (original - repo maintenance)
