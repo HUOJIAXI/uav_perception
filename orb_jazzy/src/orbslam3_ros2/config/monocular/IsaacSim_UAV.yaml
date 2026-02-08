@@ -1,0 +1,72 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters for Isaac Sim UAV
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+
+Camera.type: "PinHole"
+
+# Camera calibration parameters from Isaac Sim /pegasus_1/camera_info
+Camera1.fx: 3054.163695204686
+Camera1.fy: 3054.163695204686
+Camera1.cx: 640.0
+Camera1.cy: 360.0
+
+# No distortion in Isaac Sim camera
+Camera1.k1: 0.0
+Camera1.k2: 0.0
+Camera1.p1: 0.0
+Camera1.p2: 0.0
+Camera1.k3: 0.0
+
+# Camera frames per second (measured from topic hz)
+Camera.fps: 20
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Camera resolution from Isaac Sim
+Camera.width: 1280
+Camera.height: 720
+
+# Downscale image for faster processing (optional)
+# Uncomment to process at lower resolution
+# Camera.newWidth: 640
+# Camera.newHeight: 360
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+# Balanced for speed vs tracking quality (1200-1500 is faster, 2000+ is more robust)
+ORBextractor.nFeatures: 1200
+
+# ORB Extractor: Scale factor between levels in the scale pyramid
+# Larger value = fewer levels needed = faster (1.2 is standard, 2.0 is faster)
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid
+# Reduced from 8 to 6 for faster processing
+ORBextractor.nLevels: 6
+
+# ORB Extractor: Fast threshold
+# Higher threshold = faster detection but fewer features
+# For speed: use 20/10. For quality: use 12/5
+ORBextractor.iniThFAST: 15
+ORBextractor.minThFAST: 8
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500.0

@@ -1,0 +1,23 @@
+%YAML:1.0
+
+cam0:
+  T_imu_cam:
+    # CORRECT transform from Isaac Sim camera setup
+    # Camera Euler: [-90, 0, 90] degrees (pitch down, yaw left)
+    # Position: [0.1, 0.0, 0.05] meters (10cm forward, 5cm up)
+    - [0.0, 0.0, -1.0, 0.1]
+    - [1.0, 0.0, 0.0, 0.0]
+    - [0.0, -1.0, 0.0, 0.05]
+    - [0.0, 0.0, 0.0, 1.0]
+  cam_overlaps: []
+  camera_model: pinhole
+  # FIX: Distortion is ZERO in actual camera (no distortion model in Isaac Sim)
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]
+  distortion_model: radtan
+  # FIX: Actual intrinsics from /pegasus_1/camera_info
+  # fx = fy = 3054.16, cx = 640.0 (width/2), cy = 360.0 (height/2)
+  intrinsics: [3054.1637, 3054.1637, 640.0, 360.0]
+  # FIX: Actual camera resolution
+  resolution: [1280, 720]
+  rostopic: /pegasus_1/rgb
+  timeshift_cam_imu: 0.076

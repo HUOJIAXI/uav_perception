@@ -1,0 +1,86 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters for Isaac Sim UAV - ROBUST MODE (for hover stability)
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+
+Camera.type: "PinHole"
+
+# Camera calibration parameters from Isaac Sim /pegasus_1/camera_info
+Camera1.fx: 3054.163695204686
+Camera1.fy: 3054.163695204686
+Camera1.cx: 640.0
+Camera1.cy: 360.0
+
+# No distortion in Isaac Sim camera
+Camera1.k1: 0.0
+Camera1.k2: 0.0
+Camera1.p1: 0.0
+Camera1.p2: 0.0
+Camera1.k3: 0.0
+
+# Camera frames per second (measured from topic hz)
+Camera.fps: 20
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Camera resolution from Isaac Sim
+Camera.width: 1280
+Camera.height: 720
+
+#--------------------------------------------------------------------------------------------
+# IMU Parameters - ROBUST SETTINGS
+#--------------------------------------------------------------------------------------------
+
+# Transformation from camera to body-frame (IMU)
+IMU.T_b_c1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: f
+   data: [1.0, 0.0, 0.0, 0.0,
+          0.0, 1.0, 0.0, 0.0,
+          0.0, 0.0, 1.0, 0.0,
+          0.0, 0.0, 0.0, 1.0]
+
+# IMU noise - Slightly higher for more robustness
+IMU.NoiseGyro: 2.0e-4
+IMU.NoiseAcc: 2.0e-3
+IMU.GyroWalk: 2.0e-5
+IMU.AccWalk: 2.0e-4
+
+# IMU frequency
+IMU.Frequency: 42.0
+
+# Insert keyframes even when lost (helps recovery)
+IMU.InsertKFsWhenLost: 1
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters - MAXIMUM ROBUSTNESS FOR HOVER
+#--------------------------------------------------------------------------------------------
+
+# Maximum features for hover stability
+ORBextractor.nFeatures: 3000
+
+# Scale pyramid
+ORBextractor.scaleFactor: 1.2
+ORBextractor.nLevels: 8
+
+# Very low thresholds to extract maximum features
+ORBextractor.iniThFAST: 8
+ORBextractor.minThFAST: 3
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500.0

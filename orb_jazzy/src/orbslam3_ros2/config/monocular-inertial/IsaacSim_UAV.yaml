@@ -1,0 +1,100 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters for Isaac Sim UAV - Monocular-Inertial
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+
+Camera.type: "PinHole"
+
+# Camera calibration parameters from Isaac Sim /pegasus_1/camera_info
+Camera1.fx: 3054.163695204686
+Camera1.fy: 3054.163695204686
+Camera1.cx: 640.0
+Camera1.cy: 360.0
+
+# No distortion in Isaac Sim camera
+Camera1.k1: 0.0
+Camera1.k2: 0.0
+Camera1.p1: 0.0
+Camera1.p2: 0.0
+Camera1.k3: 0.0
+
+# Camera frames per second (measured from topic hz)
+Camera.fps: 20
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Camera resolution from Isaac Sim
+Camera.width: 1280
+Camera.height: 720
+
+#--------------------------------------------------------------------------------------------
+# IMU Parameters
+#--------------------------------------------------------------------------------------------
+
+# Transformation from camera to body-frame (IMU)
+# This is the identity transform assuming camera and IMU are co-located
+# Adjust if you have the actual camera-to-IMU transform
+IMU.T_b_c1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: f
+   data: [1.0, 0.0, 0.0, 0.0,
+          0.0, 1.0, 0.0, 0.0,
+          0.0, 0.0, 1.0, 0.0,
+          0.0, 0.0, 0.0, 1.0]
+
+# IMU noise (simulation values - lower than real sensors)
+# Gyroscope noise density (rad/s/sqrt(Hz))
+IMU.NoiseGyro: 1.0e-4
+
+# Accelerometer noise density (m/s^2/sqrt(Hz))
+IMU.NoiseAcc: 1.0e-3
+
+# Gyroscope random walk (rad/s^2/sqrt(Hz))
+IMU.GyroWalk: 1.0e-5
+
+# Accelerometer random walk (m/s^3/sqrt(Hz))
+IMU.AccWalk: 1.0e-4
+
+# IMU frequency (Hz) - measured at ~42 Hz
+IMU.Frequency: 42.0
+
+# IMU timestamp shifting (optional, in seconds)
+# Set to 0.0 if camera and IMU are hardware-synchronized
+IMU.InsertKFsWhenLost: 1
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters - Optimized for UAV with IMU
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+# Increased for better tracking stability during hover
+ORBextractor.nFeatures: 2000
+
+# ORB Extractor: Scale factor between levels in the scale pyramid
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Lower thresholds to detect more features (critical for hover)
+ORBextractor.iniThFAST: 10
+ORBextractor.minThFAST: 5
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500.0

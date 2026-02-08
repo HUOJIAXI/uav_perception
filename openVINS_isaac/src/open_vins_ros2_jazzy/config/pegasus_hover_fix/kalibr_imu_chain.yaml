@@ -1,0 +1,46 @@
+%YAML:1.0
+
+imu0:
+  T_i_b:
+    - [1.0, 0.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0, 0.0]
+    - [0.0, 0.0, 1.0, 0.0]
+    - [0.0, 0.0, 0.0, 1.0]
+  # FIX: Reduced noise parameters for cleaner Isaac Sim IMU (5x reduction)
+  # Original values were for real-world EuRoC IMU, simulator IMU is typically cleaner
+  accelerometer_noise_density: 4.0000e-4  # [ m / s^2 / sqrt(Hz) ]   ( accel "white noise" ) - reduced 5x
+  accelerometer_random_walk: 6.0000e-4    # [ m / s^3 / sqrt(Hz) ].  ( accel bias diffusion ) - reduced 5x
+  gyroscope_noise_density: 3.3936e-05     # [ rad / s / sqrt(Hz) ]   ( gyro "white noise" ) - reduced 5x
+  gyroscope_random_walk: 3.8786e-06       # [ rad / s^2 / sqrt(Hz) ] ( gyro bias diffusion ) - reduced 5x
+  rostopic: /telemetry/imu
+  time_offset: 0.0
+  update_rate: 200.0
+  # three different modes supported:
+  # "calibrated" (same as "kalibr"), "kalibr", "rpng"
+  model: "kalibr"
+  # how to get from Kalibr imu.yaml result file:
+  #   - Tw is imu0:gyroscopes:M:
+  #   - R_IMUtoGYRO: is imu0:gyroscopes:C_gyro_i:
+  #   - Ta is imu0:accelerometers:M:
+  #   - R_IMUtoACC not used by Kalibr
+  #   - Tg is imu0:gyroscopes:A:
+  Tw:
+    - [ 1.0, 0.0, 0.0 ]
+    - [ 0.0, 1.0, 0.0 ]
+    - [ 0.0, 0.0, 1.0 ]
+  R_IMUtoGYRO:
+    - [ 1.0, 0.0, 0.0 ]
+    - [ 0.0, 1.0, 0.0 ]
+    - [ 0.0, 0.0, 1.0 ]
+  Ta:
+    - [ 1.0, 0.0, 0.0 ]
+    - [ 0.0, 1.0, 0.0 ]
+    - [ 0.0, 0.0, 1.0 ]
+  R_IMUtoACC:
+    - [ 1.0, 0.0, 0.0 ]
+    - [ 0.0, 1.0, 0.0 ]
+    - [ 0.0, 0.0, 1.0 ]
+  Tg:
+    - [ 0.0, 0.0, 0.0 ]
+    - [ 0.0, 0.0, 0.0 ]
+    - [ 0.0, 0.0, 0.0 ]

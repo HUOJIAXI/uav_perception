@@ -1,0 +1,67 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters for Isaac Sim UAV - VERY FAST MODE
+# Optimized for maximum speed, minimal latency
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+
+Camera.type: "PinHole"
+
+# Camera calibration parameters from Isaac Sim /pegasus_1/camera_info
+Camera1.fx: 3054.163695204686
+Camera1.fy: 3054.163695204686
+Camera1.cx: 640.0
+Camera1.cy: 360.0
+
+# No distortion in Isaac Sim camera
+Camera1.k1: 0.0
+Camera1.k2: 0.0
+Camera1.p1: 0.0
+Camera1.p2: 0.0
+Camera1.k3: 0.0
+
+# Camera frames per second (measured from topic hz)
+Camera.fps: 20
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Camera resolution from Isaac Sim
+Camera.width: 1280
+Camera.height: 720
+
+# Process at half resolution for 4x speed increase
+Camera.newWidth: 640
+Camera.newHeight: 360
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters - VERY FAST MODE
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Minimum features for fast processing
+ORBextractor.nFeatures: 800
+
+# ORB Extractor: Scale factor - larger = faster
+ORBextractor.scaleFactor: 1.5
+
+# ORB Extractor: Minimal pyramid levels
+ORBextractor.nLevels: 4
+
+# ORB Extractor: High threshold for fastest detection
+ORBextractor.iniThFAST: 20
+ORBextractor.minThFAST: 10
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500.0
