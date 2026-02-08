@@ -78,7 +78,14 @@ add_executable(mono-inertial
 ament_target_dependencies(mono-inertial rclcpp sensor_msgs geometry_msgs nav_msgs tf2_ros cv_bridge ORB_SLAM3 Pangolin)
 target_link_libraries(mono-inertial ${OpenCV_LIBS})
 
-install(TARGETS mono rgbd stereo stereo-inertial mono-inertial
+add_executable(rgbd-inertial
+  src/rgbd-inertial/rgbd-inertial.cpp
+  src/rgbd-inertial/rgbd-inertial-node.cpp
+)
+ament_target_dependencies(rgbd-inertial rclcpp sensor_msgs geometry_msgs nav_msgs tf2_ros cv_bridge message_filters ORB_SLAM3 Pangolin)
+target_link_libraries(rgbd-inertial ${OpenCV_LIBS})
+
+install(TARGETS mono rgbd stereo stereo-inertial mono-inertial rgbd-inertial
   DESTINATION lib/${PROJECT_NAME})
 
 # Install launch files, config, vocabulary and rviz

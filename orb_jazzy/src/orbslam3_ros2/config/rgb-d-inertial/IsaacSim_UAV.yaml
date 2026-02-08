@@ -1,0 +1,111 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters for Isaac Sim UAV - RGB-D-Inertial
+#--------------------------------------------------------------------------------------------
+File.version: "1.0"
+
+Camera.type: "PinHole"
+
+# Camera calibration parameters from Isaac Sim /pegasus_1/camera_info
+Camera1.fx: 3054.163695204686
+Camera1.fy: 3054.163695204686
+Camera1.cx: 640.0
+Camera1.cy: 360.0
+
+# No distortion in Isaac Sim camera
+Camera1.k1: 0.0
+Camera1.k2: 0.0
+Camera1.p1: 0.0
+Camera1.p2: 0.0
+Camera1.k3: 0.0
+
+# Camera frames per second (measured from topic hz)
+Camera.fps: 20
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Camera resolution from Isaac Sim
+Camera.width: 1280
+Camera.height: 720
+
+# Close/Far threshold. Baseline times.
+Stereo.ThDepth: 40.0
+
+# Stereo baseline (for RGB-D, this is typically a small value)
+# For pure RGB-D sensors, this can be set to baseline*fx equivalent
+Stereo.b: 0.05
+
+# Depth map factor (converts depth image values to meters)
+# Isaac Sim typically provides depth in meters, so factor is 1.0
+# If depth is in mm, set to 1000.0
+RGBD.DepthMapFactor: 1.0
+
+#--------------------------------------------------------------------------------------------
+# IMU Parameters
+#--------------------------------------------------------------------------------------------
+
+# Transformation from body-frame (IMU) to camera
+# This is the identity transform assuming camera and IMU are co-located
+# Adjust if you have the actual IMU-to-camera transform
+IMU.T_b_c1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: f
+   data: [1.0, 0.0, 0.0, 0.0,
+          0.0, 1.0, 0.0, 0.0,
+          0.0, 0.0, 1.0, 0.0,
+          0.0, 0.0, 0.0, 1.0]
+
+# IMU noise (simulation values - lower than real sensors)
+# Gyroscope noise density (rad/s/sqrt(Hz))
+IMU.NoiseGyro: 1.0e-4
+
+# Accelerometer noise density (m/s^2/sqrt(Hz))
+IMU.NoiseAcc: 1.0e-3
+
+# Gyroscope random walk (rad/s^2/sqrt(Hz))
+IMU.GyroWalk: 1.0e-5
+
+# Accelerometer random walk (m/s^3/sqrt(Hz))
+IMU.AccWalk: 1.0e-4
+
+# IMU frequency (Hz) - measured at ~42 Hz
+IMU.Frequency: 42.0
+
+# Do not insert KFs when recently lost
+InsertKFsWhenLost: 0
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters - Optimized for RGB-D-Inertial UAV
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+# RGB-D can use fewer features due to depth information
+ORBextractor.nFeatures: 1500
+
+# ORB Extractor: Scale factor between levels in the scale pyramid
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Lower thresholds to detect more features
+ORBextractor.iniThFAST: 10
+ORBextractor.minThFAST: 5
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500.0
