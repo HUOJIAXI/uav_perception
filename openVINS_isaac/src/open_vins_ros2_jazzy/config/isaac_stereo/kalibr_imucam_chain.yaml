@@ -1,0 +1,46 @@
+%YAML:1.0
+
+# Isaac Sim stereo camera setup
+# Body frame: FLU (Forward-Left-Up), IMU at body center
+# Camera optical frame: X=right, Y=down, Z=forward
+#
+# Stereo baseline: 55 mm
+# Camera position relative to body center:
+#   Left:  [0.10, +0.0275, 0.05] (10cm forward, 2.75cm left, 5cm up)
+#   Right: [0.10, -0.0275, 0.05] (10cm forward, 2.75cm right, 5cm up)
+#
+# R_CtoI (optical frame to body/IMU frame):
+#   Optical X (right)   -> Body -Y (right)  = [0, -1, 0]
+#   Optical Y (down)    -> Body -Z (down)   = [0, 0, -1]
+#   Optical Z (forward) -> Body +X (forward) = [1, 0, 0]
+#   R = [[0, 0, 1], [-1, 0, 0], [0, -1, 0]]
+
+cam0:
+  T_imu_cam: # rotation from camera to IMU R_CtoI, position of camera in IMU p_CinI
+    - [0.0, 0.0, 1.0, 0.10]
+    - [-1.0, 0.0, 0.0, 0.0275]
+    - [0.0, -1.0, 0.0, 0.05]
+    - [0.0, 0.0, 0.0, 1.0]
+  cam_overlaps: [1]
+  camera_model: pinhole
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]
+  distortion_model: radtan
+  intrinsics: [1527.08, 1527.08, 320.0, 240.0] # fx, fy, cx, cy from camera_info
+  resolution: [640, 480]
+  rostopic: /drone0/stereo_left/color/image_raw
+  timeshift_cam_imu: 0.0
+
+cam1:
+  T_imu_cam: # rotation from camera to IMU R_CtoI, position of camera in IMU p_CinI
+    - [0.0, 0.0, 1.0, 0.10]
+    - [-1.0, 0.0, 0.0, -0.0275]
+    - [0.0, -1.0, 0.0, 0.05]
+    - [0.0, 0.0, 0.0, 1.0]
+  cam_overlaps: [0]
+  camera_model: pinhole
+  distortion_coeffs: [0.0, 0.0, 0.0, 0.0]
+  distortion_model: radtan
+  intrinsics: [1527.08, 1527.08, 320.0, 240.0] # fx, fy, cx, cy from camera_info
+  resolution: [640, 480]
+  rostopic: /drone0/stereo_right/color/image_raw
+  timeshift_cam_imu: 0.0
